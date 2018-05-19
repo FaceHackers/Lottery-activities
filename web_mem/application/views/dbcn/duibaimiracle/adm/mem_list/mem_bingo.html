@@ -1,0 +1,176 @@
+<div class="clearfix mem_bin">
+	<div class="col-xs-6 col-md-2" id="">
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-primary cls_child" id="not_yet">未派獎</button>
+				<button type="button" class="btn btn-primary cls_child" id="yet">已派獎</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-xs-6 col-md-1 give_time">
+		<div class="input-group">
+			<span class="input-group-addon system">功能：</span>
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-info cls_child_btn" id="yet_give_time" style="display:none;">自動派獎</button>
+				<button type="button" class="btn btn-info cls_child_btn" id="update_give_time" style="display:none;">更新派獎時間</button>
+			</span>
+		</div>
+	</div>
+</div>
+<div id="headerPage"  style="margin: 20px 0;">
+	<div class="box-body">
+		<table id="mem_bingo_grid"></table>
+	</div>
+</div>
+<script>
+    var mem_bingo_Fn = function(){
+        var _this = this;
+        var that = $(".mem_bin");
+        var dept = '{dept}';
+
+        var fn = {
+            initUpload: function(){
+                var _this = this;
+                /* 上傳中獎名單 */
+                $('#excelFile').change(function() {
+                    var fileName = $(this).val(); /* 檔案名稱 */
+                    var fileAry = fileName.split('\\'); /* 切割字串 \\ */
+                    $('#excelFileName').val(fileAry.pop()); /* 顯示檔案名稱 */
+                });
+                /* 點擊上傳檔案 */
+                $('#excelFileName').on('click', function(){
+                    $('#excelFile').click();
+                });
+                /* 點擊上傳 */
+                $('#excelUploadBtn').on('click', function(){
+                    _this.uploadExcel();
+                });
+                /* EXCEL範本下載 */
+                $('#downloadDemoBtn').on('click', function(){
+                    location.href = '{furl}excel/mem_bingo_demo.xlsx';
+                });
+            },
+            /* 上傳期數 並顯示 清單 */
+            uploadExcel: function(){
+                if($("#excelFile").val() === ''){
+                    popup.alert('請先選擇檔案', '請選擇上傳名單 Excel 檔案');
+                    return false;
+                }
+
+                var data = new FormData($('form[name="excelForm"]')[0]); /* 使用 FormData 物件傳送檔案 */
+                data.append('excelFile', $('#excelFile')[0].files[0]); /* 取得檔案 */
+
+                /* 上傳檔案 顯示中獎會員清單 */
+                sendFun.post('{burl}excel_mem_bingo_upload', data, {
+                    onSuccess: function(res){
+                        open_win('{burl}upload_view_mem_bingo', '', 0.8);
+                    }
+                }, true);
+            },
+            initGrid: function(){
+                var colNames = [
+                        '轉號日期(北京)',
+                        '賬號',
+                        '轉出號碼',
+						'特碼',
+                        '兌獎期數',
+                        '可獲得彩金',
+						'派獎時間(北京)'
+                    ],
+                    colModel = [
+                        { name: 'turn_time', width: 25, align: 'center'},
+                        { name: 'bingo_acc', width: 25, align: 'center'},
+                        { name: 'turn_num', width: 25, align: 'center'},
+                        { name: 'special_num', width: 25, align: 'center'},
+                        { name: 'mem_num', width: 25, align: 'center'},
+                        { name: 'receive_bonus', width: 25, align: 'center', formatter: "integer"},
+                        { name: 'distribute_time', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_bingo_grid', colNames, colModel);
+            },
+			/* 取得中獎會員資料 */
+            get_bingo_mem_data: function(type){
+                sendFun.post('{burl}get_bingo_mem_data', {type:type}, {
+                    onSuccess: function(res){
+                        jgrid.clearCurrent();
+                        jgrid.update('#mem_bingo_grid', res.bingo_list);
+                    },
+                    onFail: function(res){
+                        popup.alert(res.title, res.msg);
+                    }
+                });
+            },
+            /**
+             *  自動派獎設定
+             *  更新派獎時間
+             */
+            send_award_set: function(type){
+                var get_data = jgrid.getData('#mem_bingo_grid'); /* 取得表格資料 */
+					_this = this;
+                    get_type= that.find('.active').attr('id'); /* 取得型態 */
+				if(get_data.length == 0) {
+                    popup.alert('系統提示', '目前尚無資料可派獎');
+                    return false;
+				}
+                popup.confirm('系統提示', '請確認名單是否正確，在進行以下操作!!!', function(){
+					sendFun.post('{burl}send_award_set', {get_data: get_data, type: type}, {
+						onSuccess: function(res){
+                            _this.get_bingo_mem_data(get_type);
+                            popup.alert(res.title, res.msg);
+						},
+						onFail: function(res){
+                            _this.get_bingo_mem_data(get_type);
+							popup.alert(res.title, res.msg);
+						}
+					});
+                });
+            },
+            init: function(){
+                var _this = this;
+                _this.initGrid();
+                _this.initUpload(); /* 上傳  */
+				_this.get_bingo_mem_data('not_yet'); /* 執行中獎會員資料 */
+
+                $("#not_yet").addClass('active'); /* 加入 active 元素*/
+                $("#yet_give_time").show();
+
+                $('.cls_child').on('click', function(){
+                    $(this).siblings().removeClass('active'); /* 查找 此元素 並移除  active 元素*/
+                    $(this).addClass('active'); /* 加入 active 元素*/
+
+                    var type = $(this).attr('id'); /* 取得值 */
+
+					if(type == 'not_yet') {
+                        $("#yet_give_time").show();
+                        $("#update_give_time").hide();
+					} else if(type == 'yet') {
+                        $("#yet_give_time").hide();
+                        $("#update_give_time").show();
+					}
+
+                    _this.get_bingo_mem_data(type); /* 執行中獎會員資料 */
+                });
+
+                $('#yet_give_time').on('click', function(){
+                    _this.send_award_set('yet_give_time');
+                });
+
+                $('#update_give_time').on('click', function(){
+                    _this.send_award_set('update_give_time');
+                });
+
+				/* 轉號日期 排序 大到小 */
+                $("#mem_bingo_grid").jqGrid('sortGrid', 'turn_time', true, 'DESC');
+
+                /* 鎖權限 非行銷人員或資訊人員無法操作 自動派獎 */
+                if(dept != 03 && dept != 08) {
+                    $(".give_time").hide();
+				}
+            }
+        };
+        fn.init();
+        return fn;
+    }
+    var hfn = new mem_bingo_Fn();
+</script>

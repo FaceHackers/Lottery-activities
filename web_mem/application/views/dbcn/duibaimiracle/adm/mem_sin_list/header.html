@@ -1,0 +1,182 @@
+<div class="clearfix mem_all">
+	<div class="col-xs-6 col-md-3" id="mem_ticket">
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-primary cls_child"  id="deposit_Grid">存款记录</button>
+				<button type="button" class="btn btn-primary cls_child"  id="sign_in_Grid">签到记录</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-xs-6 col-md-1">
+		<div class="input-group">
+			<span class="input-group-addon">匯出：</span>
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-info cls_child_btn" id="deposit_Grid_Download" style="display:none;">存款记录</button>
+				<button type="button" class="btn btn-info cls_child_btn" id="sign_in_Grid_Download" style="display:none;">签到记录</button>
+			</span>
+		</div>
+	</div>
+</div>
+<div id="headerPage"  style="margin: 20px 0;">
+	<div class="box-body">
+		<table id="mem_sin_in"></table>
+	</div>
+</div>
+<script>
+    var mem_sin_Fn = function(){
+        var _this = this;
+        var that = $(".mem_all");
+        var fn = {
+            /* 存款記錄內容 */
+            depositGrid: function(){
+                var colNames = [
+                        '会员帐号',
+                        '连续存款天数',
+						'新增時間',
+						'更新時間'
+                    ],
+                    colModel = [
+                        { name: 'account', width: 25, align: 'center'},
+                        { name: 'sin_in_day', width: 25, align: 'center'},
+                        { name: 'itime', width: 25, align: 'center'},
+                        { name: 'utime', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_sin_in', colNames, colModel);
+            },
+            /* 簽到記錄內容 */
+            sing_in_Grid: function(){
+                var colNames = [
+                        '会员帐号',
+                        '连续簽到天数',
+                        '新增時間',
+                        '更新時間'
+                    ],
+                    colModel = [
+                        { name: 'account', width: 25, align: 'center'},
+                        { name: 'sin_in_day', width: 25, align: 'center'},
+                        { name: 'itime', width: 25, align: 'center'},
+                        { name: 'utime', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_sin_in', colNames, colModel);
+            },
+            /* 用日期蒐尋 兌換卷數 兌獎號碼 */
+            get_date_mem_list: function (type) {
+                var _this = this;
+
+                switch (type) {
+                    /* 存款紀錄 */
+                    case 'deposit_sin_in':
+                        $("#deposit_Grid_Download").show();
+                        $("#sign_in_Grid_Download").hide();
+
+                        $.jgrid.gridUnload('#mem_sin_in'); /* 表格重新載入 */
+                        _this.depositGrid();
+                        $("#mem_sin_in").jqGrid('sortGrid', 'itime', true, 'DESC');
+                        break;
+                    /* 簽到記錄 */
+                    case 'effective_sign_in':
+                        $("#sign_in_Grid_Download").show();
+                        $("#deposit_Grid_Download").hide();
+
+                        $.jgrid.gridUnload('#mem_sin_in'); /* 表格重新載入 */
+                        _this.sing_in_Grid();
+                        $("#mem_sin_in").jqGrid('sortGrid', 'itime', true, 'DESC');
+                        break;
+                }
+
+                /* 兌獎卷查詢  兌獎號碼 */
+                sendFun.post('{burl}get_sin_in_list', {type: type}, {
+                    onSuccess: function(res){
+                        jgrid.clearCurrent();
+
+                        switch (type) {
+                            /* 存款紀錄 */
+                            case 'deposit_sin_in':
+                                $("#deposit_Grid_Download").show();
+                                $("#sign_in_Grid_Download").hide();
+
+                                $.jgrid.gridUnload('#mem_sin_in'); /* 表格重新載入 */
+                                _this.depositGrid();
+                                $("#mem_sin_in").jqGrid('sortGrid', 'itime', true, 'DESC');
+                                break;
+                            /* 簽到記錄 */
+                            case 'sign_in_Grid_date':
+                                $("#sign_in_Grid_Download").show();
+                                $("#deposit_Grid_Download").hide();
+
+                                $.jgrid.gridUnload('#mem_sin_in'); /* 表格重新載入 */
+                                _this.sing_in_Grid();
+                                $("#mem_sin_in").jqGrid('sortGrid', 'itime', true, 'DESC');
+                                break;
+                        }
+                        jgrid.update('#mem_sin_in', res.list);
+                    },
+                    onFail: function(res){
+                        popup.alert(res.title, res.msg);
+                    }
+                });
+            },
+            /**
+             *  匯出 Excel
+             *  get_data 取得 表格資料
+             */
+            downloadExcel: function(type){
+                var get_data = jgrid.getData('#mem_all_Grid'); /* 取得表格資料 */
+                sendFun.post('{burl}downloadExcel_type', {get_data: get_data, type: type}, {
+                    onSuccess: function(res){
+                        var download = $('<a>').attr({
+                            'href': res.file, /* 檔案內容 */
+                            'download': res.fileName /* 檔案名稱 */
+                        });
+
+                        $('body').append(download);
+                        download[0].click();
+                        download.remove();
+                    },
+                    onFail: function(res){
+                        popup.alert(res.title, res.msg);
+                    }
+                });
+            },
+            init: function(){
+                var _this = this;
+                _this.depositGrid(); /* 存款紀錄 */
+                _this.get_date_mem_list('deposit_sin_in');
+
+                $("#deposit_Grid").addClass('active'); /* 預設點擊  存款紀錄 */
+                $("#deposit_Grid_Download").show(); /* 預設顯示 存款紀錄 */
+
+				/* 存款紀錄查詢*/
+                $('#deposit_Grid').on('click', function (){
+                    $("#sign_in_Grid").removeClass('active');
+                    $("#deposit_Grid").addClass('active');
+
+                    _this.get_date_mem_list('deposit_sin_in');
+                });
+
+                /* 簽到紀錄查詢*/
+                $('#sign_in_Grid').on('click', function (){
+                    $("#deposit_Grid").removeClass('active');
+                    $("#sign_in_Grid").addClass('active');
+
+                    _this.get_date_mem_list('effective_sign_in');
+                });
+
+                /* 存款紀錄紀錄 資料下載 */
+                $('#deposit_Grid_Download').on('click', function (){
+                    _this.downloadExcel('deposit_Grid');
+                });
+
+                /* 簽到紀錄紀錄 資料下載 */
+                $('#sign_in_Grid_Download').on('click', function (){
+                    _this.downloadExcel('sign_in_Grid');
+                });
+            }
+        };
+        fn.init();
+        return fn;
+    }
+    var hfn = new mem_sin_Fn();
+</script>

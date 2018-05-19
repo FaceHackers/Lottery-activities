@@ -1,0 +1,303 @@
+<div class="clearfix mem_sin">
+	<div class="col-xs-6 col-md-2">
+		<div class="input-group">
+			<span class="input-group-addon">會員速查：</span>
+			<input type="text" id="searchInput" class="form-control">
+			<span class="input-group-btn"><input type="button" class="btn btn-primary cls_child" id="mem_ser" value="查詢"></span>
+		</div>
+	</div>
+	<div class="col-xs-6 col-md-2" id="mem_ticket" style="display: none">
+		<div class="input-group">
+			<span class="input-group-btn">
+				<button type="button" class="btn btn-primary cls_child" id="voucher_inquiry">投注记录</button>
+				<button type="button" class="btn btn-primary cls_child" id="deposit_Grid">存款记录</button>
+				<button type="button" class="btn btn-primary cls_child" id="sign_in_Grid">签到记录</button>
+				<button type="button" class="btn btn-primary cls_child" id="record_Grid">兑换记录</button>
+				<button type="button" class="btn btn-primary cls_child" id="duijiang_number">对奖纪录</button>
+			</span>
+		</div>
+	</div>
+</div>
+<div id="headerPage"  style="margin: 20px 0; display: none">
+	<div class="box-body">
+		<table id="mem_sin_Grid"></table>
+	</div>
+</div>
+<script>
+	var mem_sin_Fn = function(){
+        var _this = this;
+        var that = $(".mem_sin");
+		var fn = {
+			/* 投注記錄內容 */
+            voucherGrid: function(){
+				var colNames = [
+						'投注日期(美東)',
+						'会员帐号',
+						'单日有效投注量',
+						'可获得数量',
+                        '已兑换数量',
+                        '剩馀数量',
+                        '有效期限(美東)'
+					],
+					colModel = [
+						{ name: 'order_time', width: 25, align: 'center'},
+						{ name: 'acc_deposit', width: 25, align: 'center'},
+						{ name: 'max_deposit', width: 25, align: 'center'},
+                        { name: 'no_use_ticket', width: 25, align: 'center'},
+                        { name: 'use_ticket', width: 25, align: 'center'},
+                        { name: 'expired_num', width: 25, align: 'center'},
+                        { name: 'effective_date', width: 25, align: 'center'}
+					];
+
+                jgrid.create('#mem_sin_Grid', colNames, colModel);
+			},
+            /* 存款記錄內容 */
+            depositGrid: function(){
+                var colNames = [
+                        '会员帐号',
+                        '连续存款天数',
+                        '可获得数量',
+                        '已兑换数量',
+                        '剩馀数量',
+                        '有效期限(美東)'
+                    ],
+                    colModel = [
+                        { name: 'acc_deposit', width: 25, align: 'center'},
+                        { name: 'sin_in_day', width: 25, align: 'center'},
+                        { name: 'no_use_ticket', width: 25, align: 'center'},
+                        { name: 'use_ticket', width: 25, align: 'center'},
+                        { name: 'expired_num', width: 25, align: 'center'},
+                        { name: 'effective_date', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_sin_Grid', colNames, colModel);
+            },
+            /* 簽到記錄內容 */
+            sing_in_Grid: function(){
+                var colNames = [
+                        '会员帐号',
+                        '连续签到天数',
+                        '可获得数量',
+                        '已兑换数量',
+                        '剩馀数量',
+                        '有效期限(美東)'
+                    ],
+                    colModel = [
+                        { name: 'acc_deposit', width: 25, align: 'center'},
+                        { name: 'sin_in_day', width: 25, align: 'center'},
+                        { name: 'no_use_ticket', width: 25, align: 'center'},
+                        { name: 'use_ticket', width: 25, align: 'center'},
+                        { name: 'expired_num', width: 25, align: 'center'},
+                        { name: 'effective_date', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_sin_Grid', colNames, colModel);
+            },
+            /* 表格標題 兌換記錄內容 */
+            record_Grid: function(){
+                var colNames = [
+                        '兑换時間（北京）',
+                        '会员帐号',
+                        '兑换数量',
+                        '中奖数量',
+                        '中奖金额'
+                    ],
+                    colModel = [
+                        { name: 'turn_time', width: 25, align: 'center'},
+                        { name: 'turn_acc', width: 25, align: 'center'},
+                        { name: 'turn_num', width: 25, align: 'center'},
+                        { name: 'bingo_number', width: 25, align: 'center'},
+                        { name: 'bingo_amount', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_sin_Grid', colNames, colModel, null, {
+                    loadComplete: function(res){
+                        var to_sum = {};
+                        to_sum[colModel[0].name] = '總計:(共 0 筆)';
+                        to_sum[colModel[4].name] = '中奖金额总计:';
+
+                        var cnt           = 0,
+                            bingo_amount  = 0;
+                        if(res){
+                            var row = res['rows'];
+                            for(var i = 0;i < row.length;i++){
+                                cnt++;
+                                if(!isNaN(row[i]['bingo_amount'])) {
+                                    bingo_amount     += parseInt(row[i]['bingo_amount']);
+                                }
+                            }
+                            to_sum[colModel[0].name] = '總計:(共 ' + cnt + ' 筆)';
+                            to_sum[colModel[4].name] = '中奖金额总计:' + bingo_amount + '';
+                        }
+                        $('#mem_sin_Grid').jqGrid('footerData', 'set', to_sum);
+                    }
+                });
+            },
+			/* 表格標題 兌獎紀錄內容 */
+            duijiangGrid: function(){
+                var colNames = [
+                        '兌換日期(北京)',
+                        '会员帐号',
+                        '兌換号码',
+                        '特别码',
+                        '開獎期数',
+                        '對獎结果',
+                        '派彩日期 (北京) '
+                    ],
+                    colModel = [
+                        { name: 'turn_time', width: 25, align: 'center'},
+                        { name: 'turn_acc', width: 25, align: 'center'},
+                        { name: 'turn_num', width: 25, align: 'center'},
+                        { name: 'special_num', width: 25, align: 'center'},
+                        { name: 'order_per', width: 25, align: 'center'},
+                        { name: 'result', width: 25, align: 'center'},
+                        { name: 'give_time', width: 25, align: 'center'}
+                    ];
+
+                jgrid.create('#mem_sin_Grid', colNames, colModel, null, {
+                    loadComplete: function(res){
+                        var to_sum = {};
+                        to_sum[colModel[0].name] = '總計:(共 0 筆)';
+                        to_sum[colModel[5].name] = '中奖金额总计:';
+
+                        var cnt     = 0,
+                            result  = 0;
+                        if(res){
+                            var row = res['rows'];
+                            for(var i = 0;i < row.length;i++){
+                                cnt++;
+                                if((row[i]['receive_bonus']) != '') {
+                                    result     += parseInt(row[i]['receive_bonus']);
+                                }
+                            }
+                            to_sum[colModel[0].name] = '總計:(共 ' + cnt + ' 筆)';
+                            to_sum[colModel[5].name] = '中奖金额总计:' + result + '';
+                        }
+                        $('#mem_sin_Grid').jqGrid('footerData', 'set', to_sum);
+                    }
+                });
+            },
+			init: function(){
+				var _this = this;
+
+				/* 點擊查詢按鈕 */
+                $('.cls_child').on('click', function(){
+                    $(this).siblings().removeClass('active'); /* 查找 此元素 並移除  active 元素*/
+                    $(this).addClass('active'); /* 加入 active 元素*/
+
+                    var type = $(this).attr('id'); /* 取得值 */
+
+					var searchInput = that.find('#searchInput').val();
+
+					/* 點查詢的動作 顯示資料 */
+					if(type == 'mem_ser') {
+						if(searchInput === '') {
+                            popup.alert('系統提示', '請輸入會員帳號');
+                            return false;
+						}
+
+                        $("#voucher_inquiry").addClass('active'); /* 預設點擊  投注查詢 */
+                        that.find("#mem_ticket").css("display", "block"); /* 顯示按鈕 */
+                        $("#headerPage").css("display", "block"); /* 表格顯示 */
+                        _this.voucherGrid();  /* 投注查詢表格 */
+
+                        /* 新增時間 排序 大到小 */
+                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+                        type = 'voucher_inquiry'; /* 改變 type值 直接搜尋投注 */
+					}
+
+                    /* 投注查詢  存款记录  签到记录 对奖记录 */
+                    sendFun.post('{burl}get_mem_list', {type: type, acc: searchInput}, {
+                        onSuccess: function(res){
+                            if (res.list.length > 0) {
+                                jgrid.clearCurrent();
+
+                                switch (type) {
+                                    /* 投注記錄 */
+									case 'voucher_inquiry':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.voucherGrid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+									    break;
+									/* 存款紀錄 */
+									case 'deposit_Grid':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.depositGrid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+									    break;
+									/* 簽到記錄 */
+									case 'sign_in_Grid':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.sing_in_Grid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+									    break;
+									/* 兌換紀錄 */
+									case 'record_Grid':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                    	_this.record_Grid();
+                                    	$("#mem_sin_Grid").jqGrid('sortGrid', 'turn_time', true, 'DESC');
+                                    	break;
+                                    /* 兌獎紀錄 */
+									case 'duijiang_number':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+										_this.duijiangGrid();
+										$("#mem_sin_Grid").jqGrid('sortGrid', 'turn_time', true, 'DESC');
+									    break;
+								}
+
+                                jgrid.update('#mem_sin_Grid', res.list);
+                            } else {
+                                switch (type) {
+                                    /* 投注記錄 */
+                                    case 'voucher_inquiry':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.voucherGrid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+                                        break;
+                                    /* 存款紀錄 */
+                                    case 'deposit_Grid':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.depositGrid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+                                        break;
+                                    /* 簽到記錄 */
+                                    case 'sign_in_Grid':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.sing_in_Grid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'order_time', true, 'DESC');
+                                        break;
+                                    /* 兌換紀錄 */
+                                    case 'record_Grid':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.record_Grid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'turn_time', true, 'DESC');
+                                        break;
+                                    /* 兌獎紀錄 */
+                                    case 'duijiang_number':
+                                        $.jgrid.gridUnload('#mem_sin_Grid'); /* 表格重新載入 */
+                                        _this.duijiangGrid();
+                                        $("#mem_sin_Grid").jqGrid('sortGrid', 'turn_time', true, 'DESC');
+                                        break;
+                                }
+                                popup.alert('系統提示', '找不到此會員的資訊，請重新確認。');
+                            }
+                        },
+                        onFail: function(res){
+                            popup.alert(res.title, res.msg);
+                        }
+                    });
+                });
+
+                /* 按下 Enter 會做的事情 */
+                $('.mem_sin').on('keydown', function(event){
+                    if (event.which == 13) {
+                        _this.login();
+                    }
+                });
+			}
+		};
+		fn.init();
+		return fn;
+	}
+	var hfn = new mem_sin_Fn();
+</script>

@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{act_title}</title>
+    <meta name="keywords" content="{meta_key}">
+    <meta name="description" content="{meta_des}">
+    {inc_head}
+    <link rel="stylesheet" href="{furl}js/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{furl}css/reset.css">
+    <link rel="stylesheet" href="{furl}css/custom.css">
+</head>
+<body>
+    <section>
+        <!-- 左邊區塊 -->
+        <div class="box-left">
+            <div class="logo" onclick="pageObj.home();"></div>
+            <div class="btn-box">
+                <a href="javascript:void(0)"  class="left-btn-money"></a>
+                <a href="javascript:void(0)"  class="left-btn-pro"></a>
+                <a href="javascript:void(0)"  class="left-btn-rule"></a>
+            </div>
+        </div>
+        <!-- 中間區塊 -->
+        <div class="page animated">
+            
+            <!-- 獎金說明頁 -->
+            <div class="main animal">
+                <div class="content">
+                    <button type="button" class="content-btn" data-name="change-ball">前往换球</button>
+                </div>
+            </div>
+            <!-- 對獎流程 -->
+            <div class="process animal">
+                <div class="content">
+                    <button type="button" class="content-btn" data-name="change-ball">前往换球</button>
+                    <button type="button" class="content-btn-01" data-name="how-ball">拿更多彩球</button>
+                </div>
+            </div>
+            <!-- 活動細則 -->
+            <div class="rule animal">
+                <div class="content">
+                    <ul>
+                        <li>
+                            <span>01</span>
+                            <div>活动时间：北京时间2018年01月08日中午12点至2018年02月08日中午12点止。</div>
+                        </li>
+                        <li>
+                            <span>02</span>
+                            <div>派彩说明：六合彩开奖后，系统将自动对奖，若有中奖将于每周一、三、五19：00 前自动派奖 。</div>
+                        </li>
+                        <li>
+                            <span>03</span>
+                            <div>活动单日计算区间：当日北京时间中午12点至隔日中午12点止。</div>
+                        </li>
+                        <li>
+                            <span>04</span>
+                            <div>彩球获得方式：</div>
+                            <div>•单日有效投注达2,000即可获得1组彩球，单日最高可兑换10组。</div>
+                            <div>•连续存款2天即可获得1组彩球。</div>
+                            <div>•单日有效投注50即签到1天，连续签到2天可获得1组;连续签到10天再追加1组;连续签到20天再追加1组;连续签到30天再追加1组</div>
+                        </li>
+                        <li>
+                            <span>05</span>
+                            <div>奖金打码<p>3倍</p>可出款。</div>
+                        </li>
+                        <li>
+                            <span>06</span>
+                            <div>闯关成功,于隔日登入摸彩页面，摸彩球数量将自动添加，获得摸彩球会员，<p>需于于2天内点击【兑换彩球】按钮</p>，即可兑换彩球号码，<p>逾期未兑换视同放弃</p>。 例：会员1月8日有效投注达1万，需于1月9日中午12点至1月11日中午12点止，前往至摸彩页兑换5组幸运彩球，逾期未兑换将视同放弃资格</div>
+                        </li>
+                        <li>
+                            <span>07</span>
+                            <div>六合彩搅珠日：依据香港马会的开奖时间及开奖结果为准，开奖日当天的21:00-22:00将暂停兑换彩球。<div>
+                        </li>
+                        <li>
+                            <span>08</span>
+                            <div>每人单日兑换<p>上限为10组彩球</p>。</div>
+                        </li>
+                        <li>
+                            <span>09</span>
+                            <div>每日结算投注量及存款额，兑换完的剩馀投注量及存款无法累计到隔日投注量。</div>
+                        </li>
+                        <li>
+                            <span>10</span>
+                            <div>参与此活动即表示同意<a href="javascript:void(0);" onclick="pageObj.rule_link();">《迪拜皇宫活动声明》</a>，迪拜皇宫拥有最终解释权。</div>
+                        </li>
+                    </ul>
+                    <button type="button" class="content-btn" data-name="change-ball">前往换球</button>
+                </div>
+            </div>
+            <!-- 倒數計時頁 -->
+            <div class="count woman">
+                <div class="content">
+                    <div class="count-num">
+                        <div class="hour">99</div>
+                        <div class="minute">99</div>
+                    </div>
+                    <div class="text">
+                        <p>目前您可兑换<span class="count_ticket"></span>组幸运彩球</p>
+                        <p>累计中奖金额<span class="bingo_amount"></span>元</p>
+                    </div>
+                    <div class="count-btn">
+                        <button type="button" class="content-btn" data-name="EXchange-ball">兌换彩球</button>
+                        <button type="button" class="content-btn-01" data-name="how-ball">投注换更多彩球</button>
+                    </div>
+                </div>
+            </div>
+            <!-- 體驗奇蹟(一開始顯示的頁面) -->
+            <div class="miracle woman">
+                <div class="content">
+                    <input type="text" name="acc" value="" placeholder="输入会员帐号登录">
+                    <button type="button" class="content-btn" onclick="pageObj.login();">确  认</button>
+                    <a href="javascript:void(0);" onclick="pageObj.home();">我先注册 ></a>
+                </div>
+            </div>
+            <footer>Copyright © 迪拜皇宫 Reserved</footer>
+        </div>
+        <!-- 右邊區塊 登入之後 顯示基本資訊 -->
+        <div class="box-right">
+            <div class="btn-box">
+                <a href="javascript:void(0)" target="_blank" class="btn-home" onclick="pageObj.home();"></a>
+                <a href="javascript:void(0)" target="_blank" class="btn-cus"  onclick="pageObj.cs();"></a>
+            </div>
+            <div class="mem_list">
+                <div class="snow-pic"></div>
+                <div class="acc-name" style="display: none">
+                    <span class="login_name"></span>
+                    您好
+                </div>
+                <div class="lottery-ball">
+                    <div class="ball">
+                        <div>
+                            <p class="count_ticket">0</p>
+                        </div>
+                        <div>
+                            <p>组可兑换</p>
+                        </div>
+                        <button type="button" class="btnstyle" data-name="hastaken">兑换记录</button>
+                    </div>
+                    <div class="ball">
+                        <div>
+                            <p class="exchange_ball">0</p>
+                        </div>
+                        <div>
+                            <p>組已对奖</p>
+                        </div>
+                        <button type="button" class="btnstyle" data-name="recode">对奖纪录</button>
+                    </div>
+                </div>
+                <div class="lottery-result">
+                    <div class="each-result">
+                        <div>每期开奖结果</div>
+                        <button type="button" class="btnstyle" data-name="checkNow">立即查询</button>
+                    </div>
+                    <div class="next-result">
+                        <div>下期开奖说明</div>
+                        <button type="button" class="btnstyle" data-name="checkNext">立即查询</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 右邊區塊 登入之後 顯示基本資訊 END-->
+    </section>
+
+    <!-- 彈跳視窗 -->
+    <div id="mdOverlay" class="popbox"></div>
+    <div id="mdWindow" class="popbox sign">
+        <div class="float-bg">
+            <div class="float-pic">
+                <div class="title">
+                    <!-- 如何拿更多圣诞彩球 -->
+                    <img src="{furl}images/how_title.png" alt="" class="how-title">
+                    <!-- 我的彩球 -->
+                    <img src="{furl}images/myball_title.png" alt="" class="myball-title">
+                    <!-- 我的彩球號碼 -->
+                    <img src="{furl}images/myball_num_title.png" alt="" class="myball-num-title">
+                    <!-- 我的中獎紀錄 -->
+                    <img src="{furl}images/mywin_title.png" alt="" class="mywin-title">
+                    <!-- 每周開獎結果 -->
+                    <img src="{furl}images/week_results_title.png" alt="" class="week-results-title">
+                    <!-- 下期開獎說明 -->
+                    <img src="{furl}images/next_lottery_title.png" alt="" class="next-lottery-title">
+                    <!-- 中獎通知 -->
+                    <img src="{furl}images/win_notice_title.png" alt="" class="win_notice_title">
+                    <!-- 如何獲得彩球 -->
+                    <img src="{furl}images/get_ball_title.png" alt="" class="get_ball_title">
+                    <!-- 兌換通知 -->
+                    <img src="{furl}images/exchange_box_title.png" alt="" class="exchange_box_title">
+                </div>
+                <div class="float-content">
+                    <!-- 如何拿更多圣诞彩球 -->
+                    <div class="how-box">
+                        <img src="{furl}images/how_text.png" alt="">
+                        <button type="button" class="content-btn" onclick="pageObj.home();">回官网游戏</button>
+                    </div>
+
+                    <!-- 我的彩球 -->
+                    <div class="myball-box ">
+                        <label for="">
+                            <div>查询区间</div>
+                            <select name="my_ticket" id="my_ticket">
+
+                            </select>
+                        </label>
+                        <form action="">
+                            <table>
+                                <tbody class="my_ball_history">
+                                    <tr>
+                                        <th>兑换日期</th>
+                                        <th>兑换数量</th>
+                                        <th>中奖组数</th>
+                                        <th>中奖金额</th>
+                                        <th>号码详情</th>
+                                    </tr>
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>20</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>-->
+                                            <!--<button type="button" class="check-btn" data-name="myballNum">查看</button>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>20</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>-->
+                                            <!--<button type="button" class="check-btn" data-name="myballNum">查看</button>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>20</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>-->
+                                            <!--<button type="button" class="check-btn" data-name="myballNum">查看</button>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>20</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>-->
+                                            <!--<button type="button" class="check-btn" data-name="myballNum">查看</button>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr class="total" id="total">-->
+                                        <!--<td>总计</td>-->
+                                        <!--<td>42</td>-->
+                                        <!--<td>100</td>-->
+                                        <!--<td>20</td>-->
+                                        <!--<td></td>-->
+                                    <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+
+                    <!-- 我的彩球號碼 -->
+                    <div class="table-style myball-num">
+                        <div class="top clearfix">
+                            <div class="day">
+                                <p>兑换日：<span class="turn_date"></span></p>
+                                <p>开奖日：<span class="open_date"></span></p>
+                            </div>
+                        </div>
+                        <form action="">
+                            <table>
+                                <tbody class="my_turn_history">
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>中奖组数</th>
+                                        <th>特码</th>
+                                    </tr>
+                                    <!--<tr>-->
+                                        <!--<td>1</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>3</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>4</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>5</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>6</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    
+                    <!-- 我的兌獎紀錄 -->
+                    <div class="table-style mywin-recode">
+                        <label for="">
+                            <div>查询区间</div>
+                            <select name="ticket_history" id="ticket_history">
+
+                            </select>
+                        </label>
+                        <form action="">
+                            <table>
+                                <tbody class="ticket_history">
+                                    <tr>
+                                        <th>兑换日期</th>
+                                        <th>正码</th>
+                                        <th>特码</th>
+                                        <th>开奖期数</th>
+                                        <th>状态</th>
+                                        <th>派彩时间</th>
+                                    </tr>
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>&#45;&#45;</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>2017/12/20</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>&#45;&#45;</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>待开奖</td>-->
+                                        <!--<td>&#45;&#45;</td>-->
+                                    <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+
+                    <!-- 每期開獎結果 -->
+                    <div class="table-style week-results">
+                        <label for="">
+                            <div>查询区间</div>
+                            <select name="num_periods" id="num_periods">
+
+                            </select>
+                        </label>
+                        <form action="">
+                            <table>
+                                <tbody class="periods_data">
+                                    <tr>
+                                        <th>搅珠日期</th>
+                                        <th>开奖期数</th>
+                                        <th>正码</th>
+                                        <th>特码</th>
+                                    </tr>
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr>-->
+                                        <!--<td>2017/12/20</td>-->
+                                        <!--<td>17/124-1</td>-->
+                                        <!--<td>01,07,12,18,26,34</td>-->
+                                        <!--<td>08</td>-->
+                                    <!--</tr>-->
+                                    
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+
+                    <!-- 下期開獎說明 -->
+                    <div class="next-lottery">
+                        <div>
+                            <p>六合彩开奖日为：</p>
+                            <p class="red lottery_date"></p>
+                        </div>
+                        <div>
+                            <p>开奖期数为：</p>
+                            <p class="red number_periods"></p>
+                        </div>
+                        <div>当天的21:00-22:00将暂停兑换彩球</div>
+                    </div>
+                    
+                    <!-- 中獎通知 -->
+                    <div class="win-notice">
+                        <div>恭喜您对中上期六合彩开奖号码</div>
+                        <div>详情请至中奖记录查看</div>
+                        <button type="button" class="content-btn" data-name="recode">立即查詢</button>
+                    </div>
+                    
+                    <!-- 如何獲得彩球 -->
+                    <div class="get-ball">
+                        <div class="ticket_ball">
+                            <!--<div>XX月XX日中午12点前加紧投注1000元</div>-->
+                        </div>
+
+                        <div>连续存款2天或日投50的签到任务</div>
+                        <div>便可兑换幸运彩球</div>
+                        <button type="button" class="content-btn" onclick="pageObj.home();">回官网游戏</button>
+                    </div>
+                    
+                    <!-- 兌換通知 -->
+                    <div class="exchange-box">
+                        <div>今天兑换的彩球已达上限了~</div>
+                        <div>今天再玩几场，明天来兑换吧!</div>
+                        <button type="button" class="content-btn" onclick="pageObj.home();">回官网游戏</button>
+                    </div>
+
+                    <!-- 彩球已兑换成功 -->
+                    <div class="succ-box">
+                        <p>彩球已兑换成功!</p>
+                        <button type="button" class="content-btn" data-name="hastaken">查看已领彩球</button>
+                    </div>
+
+                    <!-- 尚無對換紀錄 -->
+                    <div class="not-recode-box">
+                        <p>尚无您的兑换记录，赶紧兑换彩球吧～</p>
+                        <button type="button" class="content-btn" data-name="change-ball">前往换球</button>
+                    </div>
+
+                    <!-- 兌換通知 已達上限 -->
+                    <div class="exchange-max-box">
+                        <div>今天兑换的彩球已达上限了~明天来兑换吧!</div>
+                        <button type="button" class="content-btn" onclick="pageObj.home();">回官网游戏</button>
+                    </div>
+                </div><!-- float-content -->
+            </div>
+        </div>
+        <div class="close_btn popclose" onclick="pageObj.HideWindow();"></div>
+    </div>
+    <!-- loading -->
+    <div class="loading">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+    
+</body>
+<script src="{furl}js/jquery.timers-1.2.js"></script>
+<!--<script src="{furl}js/jquery.countUp.js"></script>-->
+<script src="{furl}js/bootstrap/js/bootstrap.min.js"></script>
+<script src="{furl}js/jquery.preload.min.js"></script>
+<script>
+var account = '';
+var optionDate = '';
+var number_periods = '';
+var count_ticket = '';
+var bingo_date = '';
+var indexFn = function(){
+    var _this          = this,
+        $page          = $('.page'),
+        $pageChildren  = $page.children('div'),
+        $title         = $('.title'),
+        $titleImg      = $('.title > img'),
+        $floatDiv      = $('.float-content > div'),
+        $btn           = $('.count-btn button:first-child'),
+        $balltext      = $('.count .text p:last-child'),
+        $ball          = $('.count .text p:first-child span').text(),
+        pBlock,
+        Data,
+        now = new Date();
+        now.setDate(now.getDate()+1);//明天日期
+        m = now.getMonth()+1;//获取当前月份的日期
+        d = now.getDate();
+        today = new Date();
+        t_m = today.getMonth()+1;//获取当前月份的日期
+        t_d = today.getDate();
+        t_h = today.getHours();
+
+    var fn = {
+        /* 登入 */
+        login: function(callback){
+            var _this = this;
+            var acc   = $('input[name="acc"]').val();
+            if (acc == '') {
+                popup.alert('页面错误', '您尚未输入帐号哦');
+                $('input[name="acc"]').focus();
+                return false;
+            }
+
+            sendFun.post('{burl}login/dubai', {acc: acc}, {
+                onSuccess: function(res){
+                    account = res.acc; /* 會員帳號 */
+                    count_ticket = res.count_ticket; /* 可使用彩卷 */
+                    amount = res.amount; /* 累計中獎金額 */
+                    exchange_ball = res.exchange_ball;
+                    get_last_term = res.get_last_term;
+
+                    if(get_last_term != '0') {
+                         bingo_date = get_last_term.substr(0, 7);
+                        //_this.get_turn_date_history(bingo_date, account);
+                       _this.update_last_term();
+                    } else if(get_last_term == '0') {
+                        $pageChildren.hide(); /* 上一個元素隱藏 */
+                        $pageChildren.eq(3).show(); /* 顯示首頁 */
+                    }
+
+                    $('.acc-name').show(); /* 顯示會員基本資訊 */
+                    $('.login_name').text(account); /* 會員帳號 */
+                    $('.count_ticket').text(count_ticket); /* 剩下幾張卷數 */
+                    $('.exchange_ball').text(exchange_ball);  /* 已對換彩球 */
+                    _this.select_val(); /* 搜尋期數號碼 */
+                    _this.select_turn_date_val(account); /* 會員轉出號碼歷史紀錄 */
+                    _this.turn_date_list(account); /* 會員轉出號碼歷史紀錄 */
+
+                    /* 累計中獎金額 */
+                    if(amount) {
+                        _this.is_win(); /* 顯示 */
+                        $('.bingo_amount').text(amount);
+                    } else {
+                        _this.not_win(); /* 隱藏 */
+                    }
+                    /* 累計中獎金額 END*/
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+        },
+        update_last_term:function () {
+            var _this = this;
+            _this.ShowWindow();
+            $titleImg.eq(6).fadeIn();
+            $floatDiv.eq(6).fadeIn();
+
+            $pageChildren.hide(); /* 上一個元素隱藏 */
+            $pageChildren.eq(3).show(); /* 顯示首頁 */
+
+
+            sendFun.post('{burl}update_last_term', {acc: account}, {
+                onSuccess: function(res){
+
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+        },
+        /* 倒數計時 搜取倒數的期數 */
+        get_last_lottery: function () {
+            var _this = this;
+            /* 期數倒數計時 */
+            sendFun.post('{burl}get_last_lottery', {}, {
+                onSuccess: function(res){
+                    var num = res.list;
+                    startime = res.start_time; /* 開始時間 */
+                    optionDate = res.optionDate; /*  更改日期格式 dd/mm/yyyy　*/
+                    number_periods = num['number_periods']; /* 期數 */
+                    lottery_date = num['lottery_date']; /* 日期 */
+
+                    /* 轉換日期格式 瀏覽器支援的問題 EX: 2017-12-01T13:00:00 */
+                    if(lottery_date) {
+                        startime = startime.replace(' ', 'T');
+                        lottery_date = lottery_date.replace(' ', 'T');
+                    }
+
+                    startDate = new Date(startime);
+                    endDate = new Date(lottery_date);
+                    spantime = (endDate - startDate)/1000;
+
+                    no_per = number_time(0) + ':' + number_time(0) + ':' + number_time(0);
+                    _this.last_second(num, spantime, no_per);
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+        },
+        /* 倒數秒數 */
+        last_second: function (num, spantime, no_per) {
+            var _this = this;
+            if(num) {
+                $(this).everyTime("1s", function(i) {
+                    spantime --;
+                    var d = Math.floor(spantime / (24 * 3600)),
+                        h = Math.floor((spantime % (24 * 3600)) / 3600),
+                        m = Math.floor((spantime % 3600) / (60)),
+                        s = Math.floor(spantime % 60);
+                    if (spantime > 0) {
+                        var hour = h + (d*24),
+                            min = m,
+                            sec = s;
+                            //reciprocal = number_time(hour) + ':'+ number_time(min) + ':'+ number_time(sec);
+
+                        $('.hour').text(number_time(hour)); /* 小時 */
+                        $('.minute').text(number_time(min)); /* 小時 */
+                   } else {
+                        /* 倒數結束的時候  呼叫下一個期數 */
+                        $(this).stop(true).stopTime(); /* 計時計 停止 */
+                        _this.get_last_lottery();
+                        that.find('#reciprocal').text(no_per);
+                    }
+                });
+            } else {
+                /* 如果 沒有期數 */
+                //var no_per = number_time(0) + ':' + number_time(0) + ':' + number_time(0);
+                $('.hour').text(number_time(0)); /* 小時 */
+                $('.minute').text(number_time(0)); /* 小時 */
+            }
+        },
+        /* 搜尋期數值 */
+        select_val: function () {
+            var _this = this;
+
+            $("#num_periods").on('change', function(e) {
+                num_periods = e.target.value;
+                _this.select_periods(num_periods);
+            });
+        },
+        /* 搜尋期數 資料 */
+        select_periods: function (num_periods) {
+            $(".periods_list").remove();
+            sendFun.post('{burl}get_periods_data', {num_periods:num_periods}, {
+                onSuccess: function(res){
+                    var periods_data = res.periods_data,
+                        periods_data_len = periods_data.length;
+
+                    for(i = 0; i < periods_data_len; i++) {
+                        var winning_numbers = periods_data[i]['winning_numbers'];
+                            winning_numbers_str = winning_numbers.replace(/,/g, "、");
+                            date = periods_data[i]['lottery_date'].substr(0, 10);
+                        $('.periods_data').append('<tr class="periods_list">' +
+                                                    '<td>' + date +'</td>' +
+                                                    '<td>' + periods_data[i]['number_periods'] +'</td>' +
+                                                    '<td>' + winning_numbers_str +'</td>' +
+                                                    '<td>' + periods_data[i]['special_numbers'] +'</td>' +
+                                                   '</tr>')
+                    }
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+        },
+        /* 選取轉出日期 */
+        select_turn_date_val: function (account, turn_date) {
+            var _this = this;
+
+            $("#my_ticket").on('change', function(e) {
+                turn_date = e.target.value;
+                _this.select_turn_date(turn_date, account);
+            });
+        },
+        /* 搜尋會員轉出號碼歷史紀錄 */
+        select_turn_date: function (turn_date, account) {
+            var _this = this;
+            var use_ticket_total = 0;
+            var bingo_num_total = 0;
+            var bingo_amount_total = 0;
+
+            $('.mem_turn_history').remove();
+            $('.total').remove();
+            sendFun.post('{burl}get_mem_turn_history', {acc:account, turn_date:turn_date}, {
+                onSuccess: function(res){
+                    var turn_list = res.list;
+                        turn_list_len = turn_list.length;
+                        turn_time = '';
+
+
+                    for(i = 0; i < turn_list_len; i++) {
+                            var turn_date = turn_list[i]['turn_time'].substr(0, 10),
+                                turn_time =  turn_list[i]['turn_time'];
+
+                            /* 中獎組數 */
+                            if(!isNaN(turn_list[i]['bingo_number'])) {
+                                bingo_num_total += parseInt(turn_list[i]['bingo_number']);
+                            }
+
+                            /* 中獎金額 */
+                            if(!isNaN(turn_list[i]['bingo_amount'])) {
+                                bingo_amount_total += parseInt(turn_list[i]['bingo_amount']);
+                            }
+
+                            /* 獲得彩球數量 */
+                            use_ticket_total += parseInt(turn_list[i]['turn_num']);
+
+                            $('.my_ball_history').append(' <tr class="mem_turn_history">' +
+                                                            '<td>'+ turn_date +'</td>' +
+                                                            '<td>'+ turn_list[i]['turn_num'] +'</td>' +
+                                                            '<td>'+ turn_list[i]['bingo_number'] +'</td>' +
+                                                            '<td>'+ turn_list[i]['bingo_amount'] +'</td>' +
+                                                            '<td>' +
+                                                            '<button type="button" class="check-btn" id="myballNum" onclick="pageObj.myballNum(\''+turn_time+'\');">查看</button>' +
+                                                            '</td>' +
+                                                        ' </tr>');
+
+                    }
+                    if(turn_time != '') {
+                        $('.my_ball_history').append(' <tr class="total">' +
+                                                        '<td>总计</td>' +
+                                                        '<td>'+ use_ticket_total +'</td>' +
+                                                        '<td>'+ bingo_num_total +'</td>' +
+                                                        '<td>'+ bingo_amount_total +'</td>' +
+                                                        '<td></td>' +
+                                                    '</tr>');
+                    }
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+        },
+        /* 選取轉出日期 */
+        turn_date_list: function (account, turn_date) {
+            var _this = this;
+
+            $("#ticket_history").on('change', function(e) {
+                turn_date = e.target.value;
+                _this.get_turn_date_history(turn_date, account);
+            });
+        },
+        /* 搜尋會員轉出號碼歷史紀錄 */
+        get_turn_date_history: function (turn_date, account) {
+            $(".turn_history").remove();
+            sendFun.post('{burl}get_turn_date_history', {acc:account, turn_date:turn_date}, {
+                onSuccess: function(res){
+                    var mem_turn = res.mem_turn_list,
+                        mem_turn_len = mem_turn.length;
+
+
+                    for (i =0; i < mem_turn_len; i++) {
+                        if(mem_turn[i]['give_time'] == '0000-00-00') {
+                            give_time = '--';
+                        } else {
+                            give_time = mem_turn[i]['give_time'];
+                        }
+
+                        turn_num = mem_turn[i]['turn_num'];
+                        turn_num_str = turn_num.replace(/,/g, "、");
+
+                        $('.ticket_history').append('<tr class="turn_history">' +
+                                                        '<td>'+ mem_turn[i]['turn_time'] +'</td>' +
+                                                        '<td>'+ turn_num_str +'</td>' +
+                                                        '<td>'+ mem_turn[i]['special_num'] +'</td>' +
+                                                        '<td>'+ mem_turn[i]['order_per'] +'</td>' +
+                                                        '<td>'+ mem_turn[i]['result'] +'</td>' +
+                                                        '<td>'+ give_time +'</td>' +
+                                                    ' </tr>');
+                    }
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+        },
+        myballNum: function (turn_time) {
+            $('.turn_history_list').remove();
+            var _this = this;
+            sendFun.post('{burl}my_ball_num', {turn_time:turn_time, acc:account}, {
+
+                onSuccess: function(res){
+                    var my_turn_list = res.list;
+                        my_turn_list_len = my_turn_list.length;
+                        turn_date = my_turn_list['0']['turn_date'];
+                        turn_date_str = turn_date.replace(/-/g, "/");
+                        turn = my_turn_list['0']['turn_time'];
+                        turn_str = turn.substr(0, 10);
+                        turn_str_re = turn_str.replace(/-/g, "/");
+
+                    $('.open_date').text(turn_date_str);
+                    $('.turn_date').text(turn_str_re);
+
+                    for(i = 0; i < my_turn_list_len; i++) {
+                        var my_number_list = my_turn_list[i]['number'];
+                            my_number_list_str = my_number_list.replace(/,/g, "、");
+
+                        $('.my_turn_history').append('<tr class="turn_history_list">' +
+                                                        '<td>'+ (i+1) +'</td>' +
+                                                        '<td>'+ my_number_list_str +'</td>' +
+                                                        '<td>'+ my_turn_list[i]['special_num'] +'</td>' +
+                                                    ' </tr>');
+                    }
+
+                },
+                onFail: function(res){
+                    popup.alert(res.title, res.msg);
+                }
+            });
+            _this.Hide();
+            $titleImg.eq(2).fadeIn();
+            $floatDiv.eq(2).fadeIn();
+        },
+        home: function(){
+            window.open("{os_link}");
+        },
+        cs: function(){
+            var url ='{cs_link}';
+            window.open(url, 'newwindow', 'width=850,height=650');
+        },
+        rule_link: function(){
+            window.open('https://www.486486.com/main/ot/faq/88');
+        },
+        mainBlock: function(pBlock){
+            $pageChildren.hide();
+            if( pBlock === 0 ){    
+                $pageChildren.eq(pBlock).show();
+            }else if( pBlock === 1 ){
+                $pageChildren.eq(pBlock).show();
+            }else if( pBlock === 2 ){
+                $pageChildren.eq(pBlock).show();
+            }
+        },
+        //按鈕事件
+        BtnClk: function(){
+            var _this = this;
+            switch (Data) {
+                //活動首頁
+                case 'change-ball':
+                    if(account == '') {
+                        $pageChildren.hide();
+                        $pageChildren.eq(4).show();
+                    } else {
+                        $pageChildren.hide();
+                        $pageChildren.eq(3).show();
+
+                        _this.HideWindow();
+                    }
+                    break;
+
+                //顯示如何獲得彩球彈窗
+                /*case 'short':
+                    _this.ShowWindow();
+                    $titleImg.eq(7).fadeIn();
+                    $floatDiv.eq(7).fadeIn();
+                    break;*/
+
+                //兌換彩球按鈕 → 彩球已兑换成功彈窗
+                case 'EXchange-ball':
+                    /* 如果沒有彩球 顯示獲得彩球 */
+                    var exchange_ball = $(".exchange_ball").text();
+                        ticket_num = $(".count_ticket").text();
+
+                    if (exchange_ball == 0 && ticket_num == 0) {
+                        if(t_h >= 12) {
+                            $('.ticket_ball').html('<div>'+ number_time(m) +'月'+ number_time(d) +'日中午12点前 , 投注满2000</div>');
+                        } else {
+                            $('.ticket_ball').html('<div>'+ number_time(t_m) +'月'+ number_time(t_d) +'日中午12点前 , 投注满2000</div>');
+                        }
+
+                        _this.ShowWindow();
+                        $titleImg.eq(7).fadeIn();
+                        $floatDiv.eq(7).fadeIn();
+                        break;
+                    } else if(ticket_num == 0) {
+                        _this.ShowWindow();
+                        $titleImg.eq(8).fadeIn();
+                        $floatDiv.eq(8).fadeIn();
+                        break;
+                    }
+
+                    sendFun.post('{burl}use_ticket', {acc:account}, {
+
+                        onSuccess: function(res){
+                            var count_ticket = res.count_ticket;
+                                exchange_ball = res.exchange_ball;
+
+                            /* 扣掉彩卷數量 */
+                            $(".count_ticket").text(count_ticket);
+                            //$('.count_ticket').countUp(param);
+                            /* 已兌獎彩球 */
+                            $(".exchange_ball").text(exchange_ball);
+
+                            _this.ShowWindow();
+                            $title.fadeOut();
+                            $floatDiv.eq(9).fadeIn();
+                        },
+                        onFail: function(res){
+                            switch (res.code) {
+                                case 300:
+                                    _this.ShowWindow();
+                                    $titleImg.eq(11).fadeIn();
+                                    $floatDiv.eq(11).fadeIn();
+                                    break;
+                                default:
+                                    popup.alert(res.title, res.msg);
+                                    break;
+                            }
+                        }
+                    });
+                    break;
+                //如何拿更多彩球
+                case 'how-ball':
+                    _this.ShowWindow();
+                    $titleImg.eq(0).fadeIn();
+                    $floatDiv.eq(0).fadeIn();
+                    break;
+
+                //已領彩球彈窗 = 我的彩球彈窗
+                case 'hastaken':
+                    if(account == '') {
+                        popup.alert('系统提示', '登入才能看到战绩喔！');
+                        break;
+                    }
+                    $("#my_ticket").html('<option value="" selected >请选择月份</option>');
+                    //var ticket_day = '';
+
+                    /* 會員轉號碼歷史紀錄 查詢區間 */
+                    sendFun.post('{burl}get_mem_history_turn_num', {acc:account}, {
+                        onSuccess: function(res){
+                            var turn_date = res.option_turn_date;
+                                turn_date_last = res.option_turn_date_last;
+                                date_time = turn_date.length;
+
+                            for (var i = 0; i < date_time; i++) {
+                                option_date += '<option value="'+turn_date[i]['dateId']+'">'+turn_date[i]['date']+ '月' +'</option>';
+                            }
+                            $("#my_ticket").append(option_date).val(turn_date_last);
+                            _this.select_turn_date(turn_date_last, account);
+                            _this.Hide();
+                            _this.ShowWindow();
+                            $titleImg.eq(1).fadeIn();
+                            $floatDiv.eq(1).fadeIn();
+                        },
+                        onFail: function(res){
+                            switch (res.code) {
+                                case 400:
+                                    _this.Hide();
+                                    _this.ShowWindow();
+                                    $titleImg.eq(10).fadeIn();
+                                    $floatDiv.eq(10).fadeIn();
+                                    break;
+                                default:
+                                    popup.alert(res.title, res.msg);
+                                    break;
+                            }
+                         }
+                    });
+                    break;
+                
+                //我的彩球號碼
+                /*case 'myballNum':
+                    _this.Hide();
+                    $titleImg.eq(2).fadeIn();
+                    $floatDiv.eq(2).fadeIn();
+                    break;*/
+
+                //兌獎紀錄
+                case 'recode':
+                    if(account == '') {
+                        popup.alert('系统提示', '登入才能看到战绩喔！');
+                        break;
+                    }
+
+                    $("#ticket_history").html('<option value="" selected >请选择月份</option>');
+
+                    /* 會員轉號碼歷史紀錄 查詢區間 */
+                    sendFun.post('{burl}get_mem_history_turn_num', {acc:account}, {
+                        onSuccess: function(res){
+                            var turn_date = res.option_turn_date;
+                            turn_date_last = res.option_turn_date_last;
+                            date_time = turn_date.length;
+
+                            for (var i = 0; i < date_time; i++) {
+                                option_date += '<option value="'+turn_date[i]['dateId']+'">'+turn_date[i]['date']+ '月' +'</option>';
+                            }
+
+                            /* 判斷是否有中獎資料 */
+                            if(bingo_date != '') {
+                                $("#ticket_history").append(option_date).val(bingo_date);
+                                _this.get_turn_date_history(bingo_date, account);
+                            } else {
+                                $("#ticket_history").append(option_date).val(turn_date_last);
+                                _this.get_turn_date_history(turn_date_last, account);
+                            }
+
+                            $titleImg.eq(6).hide();
+                            $floatDiv.eq(6).hide();
+
+                            _this.ShowWindow();
+                            $titleImg.eq(3).fadeIn();
+                            $floatDiv.eq(3).fadeIn();
+                        },
+                        onFail: function(res){
+                            switch (res.code) {
+                                case 400:
+                                    _this.Hide();
+                                    _this.ShowWindow();
+                                    $titleImg.eq(10).fadeIn();
+                                    $floatDiv.eq(10).fadeIn();
+                                    break;
+                                default:
+                                    popup.alert(res.title, res.msg);
+                                    break;
+                            }
+                        }
+                    });
+                    break;
+                
+                //每期開獎結果<立即查詢>
+                case 'checkNow':
+                    if(account == '') {
+                        popup.alert('系统提示', '登入才能看到战绩喔！');
+                        return false;
+                    }
+                    $("#num_periods").html('<option value="" selected >请选择月份</option>');
+                    var option_date = '';
+
+                    sendFun.post('{burl}get_periods', {}, {
+                        onSuccess: function(res){
+                            var date = res.option_lottery_date;
+                                date_last = res.periods_data_last;
+                                date_time = date.length;
+
+                            for (var i = 0; i < date_time; i++) {
+                                option_date += '<option value="'+date[i]['dateId']+'">'+date[i]['date']+ '月' +'</option>';
+                            }
+                            $("#num_periods").append(option_date).val(date_last);
+                            _this.select_periods(date_last);
+                        },
+                        onFail: function(res){
+                            popup.alert(res.title, res.msg);
+                        }
+                    });
+
+                    _this.ShowWindow();
+                    $titleImg.eq(4).fadeIn();
+                    $floatDiv.eq(4).fadeIn();
+                    break;
+
+                //下期開獎結果<立即查詢>
+                case 'checkNext':
+                    if(account == '') {
+                        popup.alert('系统提示', '登入才能看到战绩喔！');
+                        return false;
+                    }
+
+                    if(number_periods != '' && optionDate != '') {
+                        var date = optionDate.substr(0, 10);
+                        $('.number_periods').text(number_periods); /* 期數 */
+                        $('.lottery_date').text(date); /* 開獎日期 */
+                    } else {
+                        $('.number_periods').text('未设置');
+                        $('.lottery_date').text('未设置');
+                    }
+
+                    _this.ShowWindow();
+                    $titleImg.eq(5).fadeIn();
+                    $floatDiv.eq(5).fadeIn();
+                    break;
+
+                default:
+                    break;
+            }
+        },
+        ShowWindow: function(){
+            $('#mdOverlay,#mdWindow').fadeIn();
+        },
+        HideWindow: function(){
+            $titleImg.fadeOut();
+            $floatDiv.fadeOut();
+            $('.popbox').fadeOut(100);
+        },
+        Hide: function(){
+            $titleImg.fadeOut(10);
+            $floatDiv.fadeOut(10);
+        },
+        //累積中獎金額 → 若没中过奖，隐藏这段话
+        not_win: function(){
+            $balltext.addClass('none');
+        },
+        //累積中獎金額 → 若有中奖将显示累积中奖金额
+        is_win:function(){
+            $balltext.removeClass('none');
+        },
+        //会员投注量不足/兑换完毕再次点击兑换(0組)
+        /*short_ball: function(){
+            $ball === '0' ? $btn.attr('data-name','short') : $btn.attr('data-name','EXchange-ball');
+        },
+        //达兑换上限下次登陆后，弹窗提醒
+        //兌換通知彈窗
+        over_ball: function(){
+            var _this = this; 
+            $btn.on('click',function(){
+                _this.ShowWindow();
+                $titleImg.eq(8).fadeIn();
+                $floatDiv.eq(8).fadeIn();
+            });
+        },*/
+        //系统自动对奖后第一次登录时出现
+        //中獎通知彈窗
+        winning: function(){
+            var _this  = this; 
+            _this.ShowWindow();
+            $titleImg.eq(6).fadeIn();
+            $floatDiv.eq(6).fadeIn();
+        },
+        init: function(){
+            var _this  = this;
+                _this.get_last_lottery(); /* 倒數計時 */
+                _this.Hide();               //將所有彈窗隱藏
+
+                $pageChildren.hide();       //所有中間區塊內容隱藏
+                $pageChildren.eq(4).show(); //顯示活動首頁
+            
+            //右邊區塊按鈕
+            $('.box-left .btn-box').on('click','a',function(){
+                pBlock = $(this).index();
+                _this.mainBlock(pBlock)
+            });
+
+            //button按鈕
+            $('button').on('click',function(){
+                Data = $(this).attr('data-name');
+                _this.BtnClk(Data);
+            });
+
+            //彩球已兑换成功彈窗按鈕
+            $('.succ-box').on('click','button',function(){
+                $title.fadeIn();
+            });
+
+            //如何拿更多圣诞彩球彈窗按鈕
+            $('.how-box').on('click','button',function(){
+                _this.HideWindow();
+            });
+
+            //如何拿更多圣诞彩球彈窗按鈕
+            $('.change-ball').on('click','button',function(){
+                $pageChildren.hide();
+                $pageChildren.eq(3).show();
+            });
+
+            $('body').preload(function(){
+                $('.loading').fadeOut(500);
+            });
+
+            /* 按下 Enter 會做的事情 */
+            $('.woman').on('keydown', function(event){
+                if (event.which == 13) {
+                    _this.login();
+                }
+            });
+            //_this.short_ball();
+
+            /* 查看彩球號碼 */
+            /*$(document).on('click', '#myballNum', function() {
+                var ball_id = $('.ball-id').val();
+                _this.myballNum(ball_id);
+            });*/
+        }
+    }
+    fn.init();
+    return fn;
+}
+var pageObj = new indexFn();
+
+/* 不足未數  補0 */
+function number_time(num){
+    num = (num<10) ? '0'+num:num;return num;
+}
+
+</script>
+</html>
